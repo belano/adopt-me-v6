@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Carousel from "./Carousel";
+import ErrorBoundary from "./ErrorBoundary";
 
 class Details extends Component {
   state = { loading: true };
@@ -21,6 +22,9 @@ class Details extends Component {
   }
 
   render() {
+    // Uncomment to simulate an error during rendering
+    // throw new Error("Simulating an error");
+
     if (this.state.loading) {
       return <h2>loading … </h2>;
     }
@@ -40,4 +44,12 @@ class Details extends Component {
   }
 }
 
-export default withRouter(Details);
+const DetailsWithRouter = withRouter(Details);
+
+export default function DetailsWithErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <DetailsWithRouter />
+    </ErrorBoundary>
+  );
+}
